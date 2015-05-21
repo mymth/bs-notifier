@@ -11,7 +11,7 @@
     "sass",
     "test",
     "config.rb",
-    "gulpfiles.js"
+    "gulpfile.js"
   ],
   "dependencies": {}
 }
