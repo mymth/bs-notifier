@@ -1,0 +1,17 @@
+{
+  "name": "bs-notifier",
+  "version": "0.1.0",
+  "description": "Growl-like notification plugin using Twitter Bootsrap.",
+  "main": "js/bs-notifier.js",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "sass",
+    "test",
+    "config.rb",
+    "gulpfiles.js"
+  ],
+  "dependencies": {}
+}

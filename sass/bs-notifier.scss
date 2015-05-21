@@ -1,0 +1,51 @@
+/**
+ * bs-notifier.css
+ */
+@import '../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/_variables';
+
+$position-v: $padding-base-vertical;
+$position-h: $padding-base-horizontal;
+
+.notifications {
+  position: fixed;
+
+  // Positioning
+  &.top-right {
+    right: $position-h;
+    top: $position-v;
+  }
+
+  &.top-left {
+    left: $position-h;
+    top: $position-v;
+  }
+
+  &.bottom-left {
+    left: $position-h;
+    bottom: $position-v;
+  }
+
+  &.bottom-right {
+    right: $position-h;
+    bottom: $position-v;
+  }
+
+  // Notification Element
+  > div {
+    position: relative;
+    z-index: 9999;
+    margin: 5px 0;
+  }
+}
+
+@media(max-width: $screen-xs-max) {
+  .notifications {
+    max-width: percentage(($grid-columns - 1) / $grid-columns);
+  }
+}
+
+@media(min-width: $screen-sm-min) {
+  .notifications {
+    max-width: 50%;
+  }
+}
