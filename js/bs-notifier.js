@@ -34,18 +34,26 @@
 
 	function Notifier(element, options) {
 		this.element = element;
-		this.options = $.extend(true, {}, defaults, options);
-
 		this._defaults = defaults;
 		this._name = pluginName;
 
 		this.alertBox = '<div class="alert" role="alert"></div>';
 		this.closeBox = '<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>';
 
-		return this;
+		return this.init(options);
 	}
 
 	Notifier.prototype = {
+		init: function (options) {
+			this.options = $.extend(true, {}, defaults, options);
+
+			return this;
+		},
+
+		destroy: function () {
+			$.removeData(this.element, pluginName);
+		},
+
 		show: function (options) {
 			if (typeof options == 'string') options = {message: options};
 
@@ -95,7 +103,15 @@
 	};
 
 	$.fn[pluginName] = function (options) {
-		// uses `.get(0)` to ensure that the plugin is bound to a single container element.
-		return new Notifier(this.get(0), options);
+		var element = this.get(0),	// to ensure that the plugin is bound to a single container element.
+			plugin = $.data(element, pluginName);
+
+		if (!plugin) {
+			plugin = $.data(element, pluginName, new Notifier(element, options));
+		} else if (options) {
+			plugin.init(options);
+		}
+
+		return plugin;
 	};
 }));

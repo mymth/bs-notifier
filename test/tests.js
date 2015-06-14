@@ -1,16 +1,54 @@
 var expect = chai.expect;
 
 describe('bs-notify', function () {
-	var $test = $('#test'),
-		buttonHtml = '<button type="button" class="close" data-dismiss="alert">' +
-			'<span aria-hidden="true">×</span><span class="sr-only">Close</span>' +
-			'</button>',
-		fadeSpeed = 250,
-		notifier, $alert, expectedHtml;
+	var $test = $('#test');
+
+	describe('plugin function', function () {
+		var notifier;
+
+		it('should create a new instance and return it', function () {
+			var expected = $.data($test.get(0), 'notifier');
+
+			expect(expected).to.be.undefined;
+
+			notifier = $test.notifier();
+			expected = $.data($test.get(0), 'notifier');
+			expect(expected).to.be.an('object');
+			expect(notifier).to.equal(expected);
+		});
+
+		it('should return the existing one if an instance already exists', function () {
+			expect($test.notifier()).to.equal(notifier);
+		});
+
+		it('should initialize the existing one and return it if an instance exists and options are given', function () {
+			var newNotifier = $test.notifier({useIcon: false});
+
+			expect(newNotifier).to.equal(notifier);
+			expect(newNotifier.options.useIcon).to.be.false;
+		});
+	});
+
+	describe('#destroy()', function () {
+		it('should remove plugin from element', function () {
+			var notifier = $test.notifier();
+			notifier.destroy();
+			expect($.data($test.get(0), 'notifier')).to.be.undefined;
+		});
+	});
 
 	describe('#show()', function () {
+		var buttonHtml = '<button type="button" class="close" data-dismiss="alert">' +
+				'<span aria-hidden="true">×</span><span class="sr-only">Close</span>' +
+				'</button>',
+			fadeSpeed = 250,
+			notifier, $alert, expectedHtml;
+
 		this.timeout(5000);
-		notifier = $test.notifier();
+
+		before(function () {
+			notifier = $test.notifier();
+		});
 
 		afterEach(function (done) {
 			setTimeout(function () {
@@ -150,7 +188,7 @@ describe('bs-notify', function () {
 				fade: false,
 				onClose: function (e) {
 					e.stopPropagation();
-					$('body').append('<p id="msg">closing</p>');
+					$test.append('<p id="msg">closing</p>');
 				},
 				onClosed: function (e) {
 					setTimeout(function () {

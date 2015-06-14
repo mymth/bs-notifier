@@ -4,9 +4,14 @@
     <title>Mocha</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="../css/bs-notifier.css" />
+    -->
     <link rel="stylesheet" href="mocha.css" />
+    <style>
+      #test { display: none; }
+    </style>
   </head>
   <body>
     <div id="test" class="notifications top-left"></div>
@@ -16,7 +21,7 @@
     <script src="../node_modules/jquery/dist/jquery.js"></script>
     <script src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
     <script src="../js/bs-notifier.js"></script>
-    <script>mocha.setup('bdd')</script>
+    <script>mocha.setup('bdd');</script>
     <script src="tests.js"></script>
     <script>
       mocha.run();

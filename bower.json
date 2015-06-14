@@ -1,6 +1,6 @@
 {
   "name": "bs-notifier",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Growl-like notification plugin using Twitter Bootsrap.",
   "main": "js/bs-notifier.js",
   "license": "MIT",

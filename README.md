@@ -16,25 +16,23 @@ Available position indicator classes are `.top-right`, `.top-left`, `.bottom-rig
 
 ### JavaScript
 
-Initialize the plugin with the `notify()` method, then display a notification using the `show()` method.
+Get a new (or existing) plugin instance with the `notifier()` method.
 
 ```javascript
-$('.notifications.top-right').notify({
-	message: 'Hello world!'
-}).show();
-```
-
-Or create a plugin instance first, then reuse it to display multiple notifications.
-
-```javascript
-var notifier = $('.notifications.top-right').notify({
-	// ...custom default options
+var notifier = $('.notifications.top-right').notifier({
+	// ...your own default options
 });
+```
+> If a plugin instance is already bound to the element, `notifier()` returns the instance instead of createing a new one.
+> In this case, `notifier()` also re-initializes the instance if the options argument is passed.
 
+Then, display a notification using the `show()` method.
+
+```javascript
 notifier.show({
 	type: 'info',
-	message: 'Hello again!',
-	// ...custum options for this notification
+	message: 'Hello world!',
+	// ...onetime options
 });
 
 notifier.show({
@@ -44,11 +42,18 @@ notifier.show({
 });
 ```
 
-Also, you can simply pass a message text (or html) to show a notification with the default options.
+You can simply pass a message text (or html) to show a notification with the default options.
 
 ```javascript
 notifier.show('Lorem ipsum dolor sit amet...');
 ```
+
+To remove the plugin from the element, execute the `destroy()` method.
+
+```javascript
+notifier.destroy();
+```
+
 
 ## Options
 
