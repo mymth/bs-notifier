@@ -20,7 +20,7 @@ Get a new (or existing) plugin instance with the `notifier()` method.
 
 ```javascript
 var notifier = $('.notifications.top-right').notifier({
-	// ...your own default options
+    // ...your own default options
 });
 ```
 > If a plugin instance is already bound to the element, `notifier()` returns the instance instead of createing a new one.
@@ -30,15 +30,15 @@ Then, display a notification using the `show()` method.
 
 ```javascript
 notifier.show({
-	type: 'info',
-	message: 'Hello world!',
-	// ...onetime options
+    type: 'info',
+    message: 'Hello world!',
+    // ...onetime options
 });
 
 notifier.show({
-	type: 'warning',
-	title: 'Watch out!',
-	message: 'She will chew you up.'
+    type: 'warning',
+    title: 'Watch out!',
+    message: 'She will chew you up.'
 });
 ```
 

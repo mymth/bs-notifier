@@ -22,7 +22,8 @@
 
 @media (max-width: 767px) {
   .notifications {
-    max-width: 91.6666666667%; } }
+    max-width: 91.66666667%; } }
+
 @media (min-width: 768px) {
   .notifications {
     max-width: 50%; } }

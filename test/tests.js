@@ -1,4 +1,4 @@
-var expect = chai.expect;
+var expect = weknowhow.expect;
 
 describe('bs-notify', function () {
 	var $test = $('#test');
@@ -9,23 +9,23 @@ describe('bs-notify', function () {
 		it('should create a new instance and return it', function () {
 			var expected = $.data($test.get(0), 'notifier');
 
-			expect(expected).to.be.undefined;
+			expect(expected, 'to be undefined');
 
 			notifier = $test.notifier();
 			expected = $.data($test.get(0), 'notifier');
-			expect(expected).to.be.an('object');
-			expect(notifier).to.equal(expected);
+			expect(expected, 'to be an', 'object');
+			expect(notifier, 'to be', expected);
 		});
 
 		it('should return the existing one if an instance already exists', function () {
-			expect($test.notifier()).to.equal(notifier);
+			expect($test.notifier(), 'to be', notifier);
 		});
 
 		it('should initialize the existing one and return it if an instance exists and options are given', function () {
 			var newNotifier = $test.notifier({useIcon: false});
 
-			expect(newNotifier).to.equal(notifier);
-			expect(newNotifier.options.useIcon).to.be.false;
+			expect(newNotifier, 'to be', notifier);
+			expect(newNotifier.options.useIcon, 'to be false');
 		});
 	});
 
@@ -33,7 +33,7 @@ describe('bs-notify', function () {
 		it('should remove plugin from element', function () {
 			var notifier = $test.notifier();
 			notifier.destroy();
-			expect($.data($test.get(0), 'notifier')).to.be.undefined;
+			expect($.data($test.get(0), 'notifier'), 'to be undefined');
 		});
 	});
 
@@ -61,14 +61,14 @@ describe('bs-notify', function () {
 			$alert = $test.find('.alert');
 			expectedHtml = buttonHtml + '<i class="glyphicon glyphicon-ok-sign"></i> lorem ipsum';
 
-			expect($alert.length).to.equal(1);
-			expect($alert.hasClass('alert-success')).to.be.true;
-			expect($alert.hasClass('fade in')).to.be.true;
-			expect($alert.html()).to.equal(expectedHtml);
+			expect($alert.length, 'to be', 1);
+			expect($alert.hasClass('alert-success'), 'to be true');
+			expect($alert.hasClass('fade in'), 'to be true');
+			expect($alert.html(), 'to be', expectedHtml);
 			setTimeout(function () {
-				expect($test.find('.alert').length).to.equal(1);
+				expect($test.find('.alert').length, 'to be', 1);
 				setTimeout(function () {
-					expect($test.find('.alert').length).to.equal(0);
+					expect($test.find('.alert').length, 'to be', 0);
 					done();
 				}, 1000 + fadeSpeed);
 			}, 2000);
@@ -79,9 +79,9 @@ describe('bs-notify', function () {
 			$alert = $test.find('.alert');
 
 			setTimeout(function () {
-				expect($test.find('.alert').length).to.equal(1);
+				expect($test.find('.alert').length, 'to be', 1);
 				setTimeout(function () {
-					expect($test.find('.alert').length).to.equal(0);
+					expect($test.find('.alert').length, 'to be', 0);
 					done();
 				}, 500 + fadeSpeed);
 			}, 500);
@@ -92,10 +92,10 @@ describe('bs-notify', function () {
 			$alert = $test.find('.alert');
 
 			setTimeout(function () {
-				expect($test.find('.alert').length).to.equal(1);
+				expect($test.find('.alert').length, 'to be', 1);
 				$alert.alert('close');
 				setTimeout(function () {
-					expect($test.find('.alert').length).to.equal(0);
+					expect($test.find('.alert').length, 'to be', 0);
 					done();
 				}, fadeSpeed);
 			}, 3000 + fadeSpeed);
@@ -106,7 +106,7 @@ describe('bs-notify', function () {
 			$alert = $test.find('.alert.alert-danger');
 			expectedHtml = buttonHtml + '<i class="glyphicon glyphicon-remove-sign"></i> test';
 
-			expect($alert.html()).to.equal(expectedHtml);
+			expect($alert.html(), 'to be', expectedHtml);
 			$alert.alert('close');
 		});
 
@@ -119,7 +119,7 @@ describe('bs-notify', function () {
 			$alert = $test.find('.alert.alert-warning');
 			expectedHtml = buttonHtml + '<i class="icon-warning"></i> test';
 
-			expect($alert.html()).to.equal(expectedHtml);
+			expect($alert.html(), 'to be', expectedHtml);
 			$alert.alert('close');
 		});
 
@@ -133,7 +133,7 @@ describe('bs-notify', function () {
 			$alert = $test.find('.alert.alert-info');
 			expectedHtml = buttonHtml + '<img src="info.jpg"> test';
 
-			expect($alert.html()).to.equal(expectedHtml);
+			expect($alert.html(), 'to be', expectedHtml);
 			$alert.alert('close');
 		});
 
@@ -142,7 +142,7 @@ describe('bs-notify', function () {
 			$alert = $test.find('.alert');
 			expectedHtml = buttonHtml + 'test';
 
-			expect($alert.html()).to.equal(expectedHtml);
+			expect($alert.html(), 'to be', expectedHtml);
 			$alert.alert('close');
 		});
 
@@ -155,7 +155,7 @@ describe('bs-notify', function () {
 			$alert = $test.find('.alert');
 			expectedHtml = buttonHtml + '<h4 class="alert-title"><i class="icon-test"></i> test</h4>lorem ipsum';
 
-			expect($alert.html()).to.equal(expectedHtml);
+			expect($alert.html(), 'to be', expectedHtml);
 			$alert.alert('close');
 		});
 
@@ -170,7 +170,7 @@ describe('bs-notify', function () {
 			$alert = $test.find('.alert');
 			expectedHtml = buttonHtml + '<div class="title-class">test</div>lorem ipsum';
 
-			expect($alert.html()).to.equal(expectedHtml);
+			expect($alert.html(), 'to be', expectedHtml);
 			$alert.alert('close');
 		});
 
@@ -178,7 +178,7 @@ describe('bs-notify', function () {
 			notifier.show({message: 'test', fade: false});
 			$alert = $test.find('.alert');
 
-			expect($alert.hasClass('fade in')).to.be.false;
+			expect($alert.hasClass('fade in'), 'to be false');
 			$alert.alert('close');
 		});
 
@@ -199,9 +199,9 @@ describe('bs-notify', function () {
 			$test.find('.alert').find('button.close').trigger('click');
 
 			var $msg = $('#msg');
-			expect($msg.text()).to.equal('closing');
+			expect($msg.text(), 'to be', 'closing');
 			setTimeout(function () {
-				expect($msg.text()).to.equal('closed');
+				expect($msg.text(), 'to be', 'closed');
 				$msg.remove();
 				done();
 			}, 100);
@@ -215,7 +215,7 @@ describe('bs-notify', function () {
 			$alert = $test.find('.alert');
 			expectedHtml = buttonHtml + 'test<br>lorem ipsum<br>dolor sit amet';
 
-			expect($alert.html()).to.equal(expectedHtml);
+			expect($alert.html(), 'to be', expectedHtml);
 			$alert.alert('close');
 
 			setTimeout(function () {
@@ -226,7 +226,7 @@ describe('bs-notify', function () {
 				$alert = $test.find('.alert');
 				expectedHtml = buttonHtml + '<b>lorem ipsum</b><br>\ndolor sit amet';
 
-				expect($alert.html()).to.equal(expectedHtml);
+				expect($alert.html(), 'to be', expectedHtml);
 				$alert.alert('close');
 			}, fadeSpeed);
 		});
