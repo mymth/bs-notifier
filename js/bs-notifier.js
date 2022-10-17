@@ -1,96 +1,69 @@
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('jquery')) :
-	typeof define === 'function' && define.amd ? define(['jquery'], factory) :
-	(factory(global.$));
-}(this, (function ($) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('jquery')) :
+  typeof define === 'function' && define.amd ? define(['jquery'], factory) :
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.$));
+})(this, (function ($) { 'use strict';
 
-$ = 'default' in $ ? $['default'] : $;
+  function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
-var classCallCheck = function (instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-};
+  var $__default = /*#__PURE__*/_interopDefaultLegacy($);
 
-var createClass = function () {
-  function defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];
-      descriptor.enumerable = descriptor.enumerable || false;
-      descriptor.configurable = true;
-      if ("value" in descriptor) descriptor.writable = true;
-      Object.defineProperty(target, descriptor.key, descriptor);
-    }
-  }
+  /**
+   * bs-notifier.js
+   */
 
-  return function (Constructor, protoProps, staticProps) {
-    if (protoProps) defineProperties(Constructor.prototype, protoProps);
-    if (staticProps) defineProperties(Constructor, staticProps);
-    return Constructor;
+  const pluginName = "notifier";
+  const defaults = {
+    title: null,
+    message: null,
+    type: 'success',
+    useIcon: true,
+    icons: {
+      success: 'glyphicon glyphicon-ok-sign',
+      info: 'glyphicon glyphicon-info-sign',
+      warning: 'glyphicon glyphicon-exclamation-sign',
+      danger: 'glyphicon glyphicon-remove-sign'
+    },
+    iconTemplate: '<i class="{{icon}}"></i>',
+    titleTag: 'h4',
+    titleClass: 'alert-title',
+    fade: true,
+    autoClose: true,
+    duration: 3000,
+    onClose: null,
+    onClosed: null
   };
-}();
 
-/**
- * bs-notifier.js
- */
-var pluginName = "notifier";
-var defaults$$1 = {
-  title: null,
-  message: null,
-  type: 'success',
-  useIcon: true,
-  icons: {
-    success: 'glyphicon glyphicon-ok-sign',
-    info: 'glyphicon glyphicon-info-sign',
-    warning: 'glyphicon glyphicon-exclamation-sign',
-    danger: 'glyphicon glyphicon-remove-sign'
-  },
-  iconTemplate: '<i class="{{icon}}"></i>',
-  titleTag: 'h4',
-  titleClass: 'alert-title',
-  fade: true,
-  autoClose: true,
-  duration: 3000,
-  onClose: null,
-  onClosed: null
-};
+  class Notifier {
+    constructor(element, options) {
+      this.element = element;
+      this._defaults = defaults;
+      this._name = pluginName;
 
-var Notifier = function () {
-  function Notifier(element, options) {
-    classCallCheck(this, Notifier);
+      this.alertBox = '<div class="alert" role="alert"></div>';
+      this.closeBox = '<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>';
 
-    this.element = element;
-    this._defaults = defaults$$1;
-    this._name = pluginName;
+      return this.init(options);
+    }
 
-    this.alertBox = '<div class="alert" role="alert"></div>';
-    this.closeBox = '<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>';
-
-    return this.init(options);
-  }
-
-  createClass(Notifier, [{
-    key: 'init',
-    value: function init(options) {
-      this.options = $.extend(true, {}, defaults$$1, options);
+    init(options) {
+      this.options = $__default["default"].extend(true, {}, defaults, options);
 
       return this;
     }
-  }, {
-    key: 'destroy',
-    value: function destroy() {
-      $.removeData(this.element, pluginName);
+
+    destroy() {
+      $__default["default"].removeData(this.element, pluginName);
     }
-  }, {
-    key: 'show',
-    value: function show(options) {
+
+    show(options) {
       if (typeof options == 'string') {
-        options = { message: options };
+        options = {message: options};
       }
 
-      var opt = $.extend(true, {}, this.options, options);
-      var $alertBox = $(this.alertBox).addClass('alert-' + opt.type);
-      var icon = '';
+      const opt = $__default["default"].extend(true, {}, this.options, options);
+      const $alertBox = $__default["default"](this.alertBox).addClass(`alert-${opt.type}`);
+      let icon = '';
 
       if (!opt.message.match(/<[a-z][^>]*>/i)) {
         opt.message = opt.message.replace(/\n/g, '<br>');
@@ -105,15 +78,15 @@ var Notifier = function () {
         icon = opt.iconTemplate.replace(/\{\{icon\}\}/, opt.icons[opt.type] || '');
       }
       if (opt.title) {
-        var $titleBox = $('<' + opt.titleTag + ' />').addClass(opt.titleClass).html(opt.title);
+        const $titleBox = $__default["default"](`<${opt.titleTag} />`).addClass(opt.titleClass).html(opt.title);
 
         if (icon) {
-          $titleBox.prepend(icon + ' ');
+          $titleBox.prepend(`${icon} `);
           icon = '';
         }
         $alertBox.append($titleBox);
       }
-      $alertBox.append((icon + ' ' + opt.message).trim());
+      $alertBox.append(`${icon} ${opt.message}`.trim());
 
       if (typeof opt.onClose == 'function') {
         $alertBox.on('close.bs.alert', opt.onClose);
@@ -125,26 +98,24 @@ var Notifier = function () {
       $alertBox.appendTo(this.element).alert();
 
       if (opt.autoClose) {
-        setTimeout(function () {
+        setTimeout(() => {
           $alertBox.alert('close');
         }, opt.duration);
       }
     }
-  }]);
-  return Notifier;
-}();
-
-$.fn[pluginName] = function (options) {
-  var element = this.get(0); // to ensure that the plugin is bound to a single container element.
-  var plugin = $.data(element, pluginName);
-
-  if (!plugin) {
-    plugin = $.data(element, pluginName, new Notifier(element, options));
-  } else if (options) {
-    plugin.init(options);
   }
 
-  return plugin;
-};
+  $__default["default"].fn[pluginName] = function (options) {
+    const element = this.get(0);  // to ensure that the plugin is bound to a single container element.
+    let plugin = $__default["default"].data(element, pluginName);
 
-})));
+    if (!plugin) {
+      plugin = $__default["default"].data(element, pluginName, new Notifier(element, options));
+    } else if (options) {
+      plugin.init(options);
+    }
+
+    return plugin;
+  };
+
+}));

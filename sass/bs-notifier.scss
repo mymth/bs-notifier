@@ -1,6 +1,8 @@
 /**
  * bs-notifier.css
  */
+@use 'sass:math';
+
 @import '../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/_variables';
 
 $position-v: $padding-base-vertical;
@@ -40,7 +42,7 @@ $position-h: $padding-base-horizontal;
 
 @media(max-width: $screen-xs-max) {
   .notifications {
-    max-width: percentage(($grid-columns - 1) / $grid-columns);
+    max-width: percentage(math.div($grid-columns - 1, $grid-columns));
   }
 }
 
